@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import Searchbar from "./Searchbar/Searchbar";
 import ImageGallery from "./ImageGallery/ImageGallery";
 import * as ImageService from "./servise/getAPI"
+import Button from './Button/Button'
+import Loader from "./Loader/Loader";
+import { Text } from "./ImageGallery/ImageGallery.styled"
+
 
 export class App extends Component {
 state = {
@@ -11,8 +15,9 @@ state = {
     page: 1,
     isShow: false,
   per_page: 12,
-  isEmphty: false,
+  isEmphty: true,
   loading: false,
+  total: "",
   }
   
    componentDidUpdate(_, prevState) {
@@ -35,6 +40,8 @@ state = {
     try {
       const images = await ImageService.getImages(this.state.query, this.state.page);
       console.log(images);
+      const total = images.total
+      console.log(total);
       if (images.images.length === 0) {
          this.setState({ isEmphty: true });
      
@@ -42,6 +49,7 @@ state = {
       this.setState(prevState => ({
         images: [...prevState.images, ...images.images],
         isShow: prevState.page < Math.ceil(images.total / this.per_page),
+        total: images.total
 
       }));
     } catch (error) {
@@ -74,11 +82,21 @@ state = {
   };
 
 
-  render(){
+  render() {
+   const { images, loading, total, error, page,isEmphty } = this.state;
   return (
     <div>
-      <Searchbar onSubmit={this.handleForm}/>
-      <ImageGallery images={this.state.images}/>
+      <Searchbar onSubmit={this.handleForm} />
+       {loading && <Loader />}
+      <ImageGallery images={images} />
+
+      {page < total && !error && (
+            <Button onButton={this.incrementPage} />
+      )}
+      {isEmphty && (
+        <Text textAlign="center">Вибачте, поки немає завантажених зображень... 😭</Text>)}
+       
+      
     </div>
   );}
 };

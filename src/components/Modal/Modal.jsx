@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
-import { Overlay, ModalContainer } from './Modal.styled';
+import { Overlay, Modal } from './Modal.styled';
 
-const modalRoot = document.querySelector('#modal-root');
+const modal = document.querySelector('#modal');
 
-export class Modal extends Component {
+export class ModalWindow extends Component {
   state = {
     isOpen: false,
   };
@@ -18,28 +18,28 @@ export class Modal extends Component {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  handleKeyDown = event => {
-    if (event.code === 'Escape') this.props.onClose();
+  handleKeyDown = e => {
+    if (e.code === 'Escape') this.props.onClose();
   };
 
-  handleBackdropClick = event => {
-    if (event.target === event.currentTarget) this.props.onClose();
+  handleBackdropClick = e => {
+    if (e.target === e.currentTarget) this.props.onClose();
   };
 
   render() {
     const { src, alt } = this.props;
     return createPortal(
       <Overlay onClick={this.handleBackdropClick}>
-        <ModalContainer>
+        <Modal>
           <img src={src} alt={alt} />
-        </ModalContainer>
+        </Modal>
       </Overlay>,
-      modalRoot
+      modal
     );
   }
 }
 
-Modal.propTypes = {
+ModalWindow.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
   onClose: PropTypes.func.isRequired,

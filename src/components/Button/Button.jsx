@@ -1,10 +1,11 @@
 import { LoadMore } from './Button.styled';
 
-export default const Button = ({ clickHandle }) => {
+const Button = ({ onButton }) => {
   return (
-    <LoadMore type="button" onClick={clickHandle}>
-      LOAD MORE
+    <LoadMore type="button" onClick={onButton}>
+     Ще?
     </LoadMore>
   );
 };
 
+export default Button

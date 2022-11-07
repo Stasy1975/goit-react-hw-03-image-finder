@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 export const GalleryList = styled.ul`
   display: grid;
   max-width: calc(100vw - 48px);
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
   grid-gap: 16px;
   margin-top: 0;
   margin-bottom: 0;
@@ -16,4 +16,12 @@ export const Gallery = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+
+export const Text = styled.p`
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: auto;
 `;

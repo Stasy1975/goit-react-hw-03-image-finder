@@ -1,6 +1,10 @@
 import styled from '@emotion/styled'
 
 export const LoadMore = styled.button`
+margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
     padding: 8px 16px;
   border-radius: 2px;
   background-color: #3f51b5;
